@@ -1,0 +1,129 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation bar -->
+    <nav>
+        <h1>GRIP-BANK</h1>
+        <input type="checkbox" id="checkbox_toggle" />
+        <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+        <div class="menu dropdown">
+            <li onclick="newPage(1)">Home</li>
+            <li onclick="newPage(3)">Transfer</li>
+            <li onclick="newPage(2)">Members</li>
+            <li onclick="newPage(4)">History</li>
+        </div>
+        <div class="dis">
+            <p>Devansh Abrol</p>
+        </div>
+    </nav>
+    <!-- home page -->
+    <div class="home page">
+        <div class="content">
+            <h1>GRIP-BANK</h1>
+            <p>The Sparks Foundation gives you a reliable banking service</p>
+            <button onclick="newPage(2)">View All Customers</button>
+
+        </div>
+        <div class="picture">
+            <img src="{{url_for('static', filename='images/home.svg')}}" alt="">
+        </div>
+
+    </div>
+    <!-- View Costumers -->
+    <div class="cos page hide">
+        <div class="content">
+            <h1>View Costumers</h1>
+            <p>Here is a list of our members</p>
+            <div class="members">
+                <table>
+                    <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Balance</th>
+                    </tr>
+                    {% for costumer in dab%}
+                    <tr>
+                    <td>{{ costumer['name']}}</td>
+                    <td>{{ costumer['email'] }}</td>
+                    <td>{{ costumer['balance'] }}</td>
+                    </tr>
+                    {% endfor %}
+                    </table>
+            </div>
+
+        </div>
+        <div class="picture">
+            <img src="{{url_for('static', filename='images/members.svg')}}" alt="">
+        </div>
+
+    </div>
+    <!-- Transfer -->
+    <div class="tra page hide">
+        <div class="content">
+            <h1>Transfer</h1>
+            <p>Select the member and the amount to transfer</p>
+            <form action="/transfer" method="GET">
+                <input type="text" placeholder="Enter Costumer Name" name="cus">
+                <input type="number" placeholder="Enter amount" name="num">
+                <button id="trans">Transer</button>
+            </form>
+
+        </div>
+        <div class="picture">
+            <img src="{{url_for('static', filename='images/transfer.svg')}}" alt="">
+        </div>
+
+    </div>
+    <!-- History -->
+    <div class="his page hide">
+        <div class="content">
+            <h1>History of transactions</h1>
+            <div class="members">
+                <table>
+                    <tr>
+                    <th>Name</th>
+                    <th>Amount Transfered</th>
+                    </tr>
+                    {% for history in his%}
+                    <tr>
+                    <td>{{ history['name']}}</td>
+                    <td>{{ history['amount'] }}</td>
+                    </tr>
+                    {% endfor %}
+                    </table>
+            </div>
+            <form action="/delete">
+                <button>Delete History</button>
+            </form>
+
+        </div>
+        <div class="picture">
+            <img src="{{url_for('static', filename='images/home.svg')}}" alt="">
+        </div>
+
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="links">
+            <a href="">Instagram</a>
+            <a href="">LinkedIn</a>
+            <a href="">Twitter</a>
+            <a href="">Facebook</a>
+        </div>
+        <div class="contact">
+            <p>Address: xyz, India</p>
+            <p>Mobile Number: +91 888-888-8888</p>
+        </div>
+    </footer>
+
+
+
+    <script src="{{ url_for('static',filename='script.js') }}"></script>
+</body>
+</html>
